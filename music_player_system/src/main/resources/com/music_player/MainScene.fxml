@@ -9,11 +9,12 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.music_player.Controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.music_player.Controller.MainController">
    <top>
       <HBox prefHeight="54.0" prefWidth="684.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -63,27 +64,33 @@
       </VBox>
    </center>
    <bottom>
-      <HBox prefHeight="195.0" prefWidth="684.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="236.0" prefWidth="706.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="195.0" prefWidth="226.0" spacing="10.0">
+            <VBox prefHeight="229.0" prefWidth="214.0" spacing="10.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="216.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label text="Song name:" />
-                  <Label text="Artist:" />
+                  <ImageView fitHeight="132.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="5.0" text="Дууны нэр:" />
+                        <Label layoutY="40.0" text="Дуучин:" />
+                        <Label fx:id="lblSongName" layoutX="68.0" layoutY="5.0" text="Label" />
+                        <Label fx:id="lblArtist" layoutX="54.0" layoutY="40.0" text="Label" />
+                     </children>
+                  </AnchorPane>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets left="10.0" right="10.0" top="10.0" />
                </padding>
             </VBox>
             <VBox prefHeight="195.0" prefWidth="482.0" spacing="10.0">
                <children>
-                  <HBox prefHeight="68.0" prefWidth="428.0">
+                  <HBox prefHeight="68.0" prefWidth="428.0" spacing="20.0">
                      <children>
                         <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="&lt;" />
+                        <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" style="-fx-background-radius: 30;" text="o" />
+                        <Button mnemonicParsing="false" text="&gt;" />
+                        <Button fx:id="btnPause" mnemonicParsing="false" text="=" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -91,7 +98,7 @@
                         <VBox prefHeight="98.0" prefWidth="369.0">
                            <children>
                               <Slider minWidth="200.0" />
-                              <Slider minWidth="200.0" />
+                              <Slider fx:id="volumeSlider" minWidth="200.0" />
                            </children>
                         </VBox>
                         <VBox prefHeight="98.0" prefWidth="150.0">

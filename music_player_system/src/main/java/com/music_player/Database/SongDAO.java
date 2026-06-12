@@ -26,6 +26,7 @@ public class SongDAO {
                 s.setGenre(rs.getString("genre"));
                 s.setFileName(rs.getString("file_name"));
                 s.setPlayCount(rs.getInt("play_count"));
+                s.setFavorite(rs.getBoolean("favorite"));
 
                 list.add(s);
             }

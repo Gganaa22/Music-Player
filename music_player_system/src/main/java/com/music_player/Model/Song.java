@@ -7,6 +7,7 @@ public class Song{
     private String genre;
     private String fileName;
     private int playCount;
+    private boolean favorite;
 
     public Song() {}
 
@@ -57,4 +58,10 @@ public class Song{
     public void setPlayCount(int playCount) {
         this.playCount = playCount;
     }
+
+    public boolean isFavorite() { 
+        return favorite; }
+
+    public void setFavorite(boolean favorite) { 
+        this.favorite = favorite; }
 }
