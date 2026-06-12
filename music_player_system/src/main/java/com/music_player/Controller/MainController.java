@@ -89,11 +89,53 @@ public class MainController {
     }
 
         private void prepareSong(String fileName) {
+        try {
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
+
+            URL resource = getClass().getResource("/songs/" + fileName);
+                    if (resource == null) {
+                        System.out.println("Файл олдсонгүй: " + fileName);
+                        return;
+                    }
+
+            Media media = new Media(resource.toExternalForm());
+            mediaPlayer = new MediaPlayer(media);
+
+            // Duu duusahad tovchluuriin textiig butsaagaad "▶" bolgoh 
+            mediaPlayer.setOnEndOfMedia(() -> {
+                btnPlay.setText("▶");
+            });
+
+            mediaPlayer.setVolume(1.0);
             
+            // Shine duu sonsmogts tovchluur "▶" tolovtei baina
+            btnPlay.setText("▶");
+
+        } catch (Exception e) {
+            System.out.println("Дууг бэлдэхэд алдаа гарлаа: " + e.getMessage());
+        }
     }
 
         private void handlePlayPause() {
+        if (mediaPlayer == null) {
+            System.out.println("Тоглуулах дуу сонгогдоогүй байна.");
+            return;
+        }
 
+        // Herev duu odoo togloj baival tur zogsono 
+        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.pause();
+            btnPlay.setText("▶"); // Товчлуурын дүрсийг Play болгоно
+            System.out.println("Түр зогслоо.");
+        } 
+        // Herev duug zogsson esvel belen baival togluulna 
+        else {
+            mediaPlayer.play();
+            btnPlay.setText("⏸"); // Tovchluuriin dursiig Pause bolgono
+            System.out.println("Тоглож байна: " + selectedSong.getTitle());
+        }
     }
 }
 
