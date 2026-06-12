@@ -50,8 +50,9 @@
          <children>
             <TableView fx:id="tblSongs" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="colTitle" prefWidth="215.20007646083832" text="Дууны нэр " />
+                <TableColumn fx:id="colArtist" minWidth="4.79998779296875" prefWidth="107.99998474121094" text="Дуучин" />
+                  <TableColumn fx:id="colGenre" prefWidth="188.00009155273438" text="Төрөл" />
               </columns>
             </TableView>
             <Button fx:id="btnAddSong" alignment="CENTER" mnemonicParsing="false" text="Add Song" />
