@@ -149,6 +149,28 @@ public class MainController {
                 btnPlay.setText("⏸");
             }
         });
+
+
+        btnAddSong.setOnAction(event ->{
+            try{
+                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/com/music_player/AddSongView.fxml"));
+                javafx.scene.Parent root = loader.load();
+
+                javafx.stage.Stage stage = new javafx.stage.Stage();
+                stage.setTitle("Шинэ дуу нэмэх");
+                stage.setScene(new javafx.scene.Scene(root));
+
+                stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+                ObservableList<Song> refreshedSongs = FXCollections.observableArrayList(SongDAO.getAllSongs());
+                tblSongs.setItems(refreshedSongs);
+
+            } catch(Exception e){
+                System.out.println("Шинэ цонх нээхэл алдаа гарлаа: "+ e.getMessage());
+                e.printStackTrace();
+            }
+        });
         
     }
 
