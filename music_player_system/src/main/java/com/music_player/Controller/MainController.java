@@ -16,6 +16,9 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 import java.net.URL;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+
 import com.music_player.Database.SongDAO;
 import com.music_player.Model.Song;
 
@@ -75,9 +78,39 @@ public class MainController {
         colArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         colGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
 
+        // 1.Baazaas buh duug unshij undsen jagsaaltand avna
         ObservableList<Song> songs = FXCollections.observableArrayList(SongDAO.getAllSongs());
 
-        tblSongs.setItems(songs);
+        // 2.Undsen jagsaaltiig FilteredList-eer orooj shuuhed belen bolgono
+        FilteredList<Song> filteredData = new FilteredList<>(songs, p -> true);
+
+        // 3. txtSearch deer text bich burt ajillah logic 
+        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(song -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (song.getTitle().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; 
+                } 
+                
+                else if (song.getArtist().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; 
+                }
+                
+                return false; 
+            });
+        });
+
+        // 4. Shuugdsen ogogdliig TableView-tei holboj, Sortloh bolomjiig olgono
+        SortedList<Song> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tblSongs.comparatorProperty());
+        
+        tblSongs.setItems(sortedData);
 
         // TableView deer duu songoh uyd ajillah heseg 
         tblSongs.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
