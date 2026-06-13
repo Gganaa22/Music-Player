@@ -11,6 +11,15 @@ public class Song{
 
     public Song() {}
 
+    //uuniig AddSongController d ashiglana
+    public Song(int id, String title, String artist, String genre, String fileName) {
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.genre = genre;
+        this.fileName = fileName;
+    }
+
     public int getId() {
         return id;
     }

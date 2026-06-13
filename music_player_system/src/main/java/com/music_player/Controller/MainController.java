@@ -150,7 +150,7 @@ public class MainController {
             }
         });
 
-
+        // Duu nemeh tovchluur darahad shine tsonh neeh 
         btnAddSong.setOnAction(event ->{
             try{
                 javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/com/music_player/AddSongView.fxml"));

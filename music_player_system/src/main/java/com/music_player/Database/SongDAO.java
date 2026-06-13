@@ -37,4 +37,25 @@ public class SongDAO {
         return list;
     }
 
+    public static boolean insertSong(Song song) {
+        String sql = "INSERT INTO songs (title, artist, genre, file_name, play_count, favorite) VALUES (?, ?, ?, ?, 0, false)";
+        
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            ps.setString(1, song.getTitle());
+            ps.setString(2, song.getArtist());
+            ps.setString(3, song.getGenre());
+            ps.setString(4, song.getFileName());
+            
+            int rowsInserted = ps.executeUpdate();
+            return rowsInserted > 0; // Herev database ruu amjilttai orson bl true butsaana
+            
+        } catch (Exception e) {
+            System.out.println("Бааз руу дуу нэмэхэд алдаа гарлаа: " + e.getMessage());
+            return false;
+        }
+    }
+
 }
