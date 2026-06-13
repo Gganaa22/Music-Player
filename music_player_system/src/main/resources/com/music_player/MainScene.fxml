@@ -88,7 +88,7 @@
                      <children>
                         <Button mnemonicParsing="false" text="Button" />
                         <Button mnemonicParsing="false" text="&lt;" />
-                        <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" style="-fx-background-radius: 30;" text="o" />
+                        <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" style="-fx-background-radius: 30;" text="▶" />
                         <Button mnemonicParsing="false" text="&gt;" />
                         <Button fx:id="btnPause" mnemonicParsing="false" text="=" />
                      </children>
@@ -97,13 +97,13 @@
                      <children>
                         <VBox prefHeight="98.0" prefWidth="369.0">
                            <children>
-                              <Slider minWidth="200.0" />
+                              <Slider fx:id="progressSlider" minWidth="200.0" />
                               <Slider fx:id="volumeSlider" minWidth="200.0" />
                            </children>
                         </VBox>
                         <VBox prefHeight="98.0" prefWidth="150.0">
                            <children>
-                              <Label text="Progress" />
+                              <Label fx:id="lblTime" text="Progress" />
                               <Label text="Volume" />
                            </children>
                         </VBox>

@@ -58,6 +58,12 @@ public class MainController {
     @FXML
     private Slider volumeSlider;
 
+    @FXML 
+    private Slider progressSlider;
+
+    @FXML
+    private Label lblTime;
+
     // Global huvisagch
     private MediaPlayer mediaPlayer;
     private Song selectedSong;
@@ -94,6 +100,23 @@ public class MainController {
                 mediaPlayer.setVolume(newValue.doubleValue() / 100.0);
             }
         });
+
+        // Hereglegch Progress Slider-iig mouse aaar hodolgoh uyed duug ter heseg ruu guigene
+        progressSlider.setOnMousePressed(event -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.pause();
+            }
+        });
+
+        progressSlider.setOnMouseReleased(event -> {
+            if (mediaPlayer != null) {
+                // Slider-iin baigaa second ruu shiljuulne
+                mediaPlayer.seek(javafx.util.Duration.seconds(progressSlider.getValue()));
+                mediaPlayer.play(); 
+                btnPlay.setText("⏸");
+            }
+        });
+        
     }
 
         private void prepareSong(String fileName) {
@@ -110,6 +133,24 @@ public class MainController {
 
             Media media = new Media(resource.toExternalForm());
             mediaPlayer = new MediaPlayer(media);
+
+            // Duu buren achaalgdaj duusaad niit hugatsaa ni todorhoi boloh uyd ajillana
+            mediaPlayer.setOnReady(() -> {
+                double totalSeconds = mediaPlayer.getTotalDuration().toSeconds();
+                progressSlider.setMax(totalSeconds); 
+            });
+
+            // Duu togloj baih uyd second tutamd ajillaj baih toologch (Listener)
+            mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                if (!progressSlider.isValueChanging()) {
+                    progressSlider.setValue(newValue.toSeconds()); 
+                }
+                
+                // Text hugatsaag shinechleh
+                if (mediaPlayer.getTotalDuration() != null) {
+                    lblTime.setText(formatTime(newValue, mediaPlayer.getTotalDuration()));
+                }
+            });
 
             // Duu duusahad tovchluuriin textiig butsaagaad "▶" bolgoh 
             mediaPlayer.setOnEndOfMedia(() -> {
@@ -135,7 +176,7 @@ public class MainController {
         // Herev duu odoo togloj baival tur zogsono 
         if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
             mediaPlayer.pause();
-            btnPlay.setText("▶"); // Товчлуурын дүрсийг Play болгоно
+            btnPlay.setText("▶");
             System.out.println("Түр зогслоо.");
         } 
         // Herev duug zogsson esvel belen baival togluulna 
@@ -144,6 +185,20 @@ public class MainController {
             btnPlay.setText("⏸"); // Tovchluuriin dursiig Pause bolgono
             System.out.println("Тоглож байна: " + selectedSong.getTitle());
         }
+    }
+
+    // Secondiig  00:00 / 00:00 helbert oruulh function
+    private String formatTime(javafx.util.Duration elapsed, javafx.util.Duration total) {
+        int intElapsed = (int) Math.floor(elapsed.toSeconds());
+        int elapsedMinutes = intElapsed / 60;
+        int elapsedSeconds = intElapsed % 60;
+
+        int intTotal = (int) Math.floor(total.toSeconds());
+        int totalMinutes = intTotal / 60;
+        int totalSeconds = intTotal % 60;
+
+        return String.format("%02d:%02d / %02d:%02d", 
+                elapsedMinutes, elapsedSeconds, totalMinutes, totalSeconds);
     }
 }
 
