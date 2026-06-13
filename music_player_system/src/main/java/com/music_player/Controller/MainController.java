@@ -86,6 +86,14 @@ public class MainController {
 
         // Neg tovchluurt Play/pause logic holboh
         btnPlay.setOnAction(event -> handlePlayPause());
+
+        // Volume Slider-iin utga oorchlogdoh buriig mederch duunii changiig tohiruulh
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (mediaPlayer != null) {
+                
+                mediaPlayer.setVolume(newValue.doubleValue() / 100.0);
+            }
+        });
     }
 
         private void prepareSong(String fileName) {
@@ -108,7 +116,7 @@ public class MainController {
                 btnPlay.setText("▶");
             });
 
-            mediaPlayer.setVolume(1.0);
+            mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
             
             // Shine duu sonsmogts tovchluur "▶" tolovtei baina
             btnPlay.setText("▶");
