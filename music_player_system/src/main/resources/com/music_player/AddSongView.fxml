@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" spacing="15.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.music_player.Controller.AddSongController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <Label text="ШИНЭ ДУУ НЭМЭХ">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <GridPane hgap="10.0" vgap="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.20001220703125" minWidth="10.0" prefWidth="89.39996337890625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.60003662109375" minWidth="10.0" prefWidth="260.60003662109375" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Дууны нэр:" />
+            <Label text="Дуучин:" GridPane.rowIndex="1" />
+            <Label text="Төрөл:" GridPane.rowIndex="2" />
+            <Label text="Файл сонгох:" GridPane.rowIndex="3" />
+            <TextField fx:id="txtTitle" GridPane.columnIndex="1" />
+            <TextField fx:id="txtArtist" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtGenre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <TextField fx:id="txtFileName" />
+                  <Button fx:id="btnBrowse" mnemonicParsing="false" onAction="#handleBrowse" text="Сонгох..." />
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#handleSave" text="Хадгалах" />
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" text="Цуцлах" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
