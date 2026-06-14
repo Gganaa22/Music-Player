@@ -75,4 +75,21 @@ public class SongDAO {
         }
     }
 
+
+    // Duug id-gaar ni database-ees ustgah 
+    public static boolean deleteSong(int songId) {
+        String sql = "DELETE FROM songs WHERE id = ?";
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, songId);
+            
+            int rowsDeleted = ps.executeUpdate();
+            return rowsDeleted > 0; // Amjilttai ustgasan bol true butsaana
+        } catch (Exception e) {
+            System.out.println("Дуу устгахад алдаа гарлаа: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

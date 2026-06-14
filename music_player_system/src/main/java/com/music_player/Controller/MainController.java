@@ -76,6 +76,10 @@ public class MainController {
     private Button btnFavorite;
 
     @FXML
+    private Button btnDelete;
+    
+
+    @FXML
     public void initialize() {
 
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -185,7 +189,7 @@ public class MainController {
 
         
         btnFavorite.setOnAction(event -> handleFavorite());
-        
+        btnDelete.setOnAction(event -> handleDelete());    
     }
 
         private void prepareSong(String fileName) {
@@ -291,6 +295,44 @@ public class MainController {
             } else {
                 btnFavorite.setStyle("-fx-text-fill: black;"); // Tsutslbal har blno
                 System.out.println("Дуртай дуунаас хаслаа.");
+            }
+        }
+    }
+
+    //Duu ustgah function
+    private void handleDelete() {
+        if (selectedSong == null) {
+            System.out.println("Устгах дуу сонгогдоогүй байна.");
+            return;
+        }
+
+        // Hereglegchees uneheer ustgah esehiig asuuh anhaaruulh tsonh
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Дуу устгах");
+        alert.setHeaderText(null);
+        alert.setContentText("Та '" + selectedSong.getTitle() + "' дууг устгахдаа итгэлтэй байна уу?");
+
+        java.util.Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.OK) {
+            
+            // Herev ustgah gej bui duu odoo togloj baival hogjmiig zogsoono
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                mediaPlayer = null;
+                btnPlay.setText("▶");
+            }
+
+            // Database ees ustgah
+            boolean success = SongDAO.deleteSong(selectedSong.getId());
+            if (success) {
+                System.out.println("Дуу амжилттай устлаа.");
+                selectedSong = null;
+                lblSongName.setText("Дуу сонгогдоогүй");
+                lblArtist.setText("");
+                
+                // Jagsaaltiig datase ees dahin unshij TableView iig shuud shinechleh
+                ObservableList<Song> refreshedSongs = FXCollections.observableArrayList(SongDAO.getAllSongs());
+                tblSongs.setItems(refreshedSongs);
             }
         }
     }
