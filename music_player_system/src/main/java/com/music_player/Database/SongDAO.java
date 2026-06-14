@@ -58,4 +58,21 @@ public class SongDAO {
         }
     }
 
+    // Duunii favorite toloviig database deer shinechlh function
+    public static boolean updateFavoriteStatus(int songId, boolean isFavorite) {
+        String sql = "UPDATE songs SET favorite = ? WHERE id = ?";
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setBoolean(1, isFavorite);
+            ps.setInt(2, songId);
+            
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            System.out.println("Дуртай дууны төлөв өөрчлөхөд алдаа: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

@@ -71,6 +71,10 @@ public class MainController {
     private MediaPlayer mediaPlayer;
     private Song selectedSong;
 
+
+    @FXML 
+    private Button btnFavorite;
+
     @FXML
     public void initialize() {
 
@@ -118,6 +122,13 @@ public class MainController {
                 selectedSong = newValue;
                 lblSongName.setText(selectedSong.getTitle());
                 lblArtist.setText(selectedSong.getArtist());
+
+                // Songoson duu favorite mon esehees hamaarch tovchnii ongiig solino
+                if (selectedSong.isFavorite()) {
+                    btnFavorite.setStyle("-fx-text-fill: red;");
+                } else {
+                    btnFavorite.setStyle("-fx-text-fill: black;");
+                }
                 
                 prepareSong(selectedSong.getFileName());
             }
@@ -171,6 +182,9 @@ public class MainController {
                 e.printStackTrace();
             }
         });
+
+        
+        btnFavorite.setOnAction(event -> handleFavorite());
         
     }
 
@@ -254,6 +268,31 @@ public class MainController {
 
         return String.format("%02d:%02d / %02d:%02d", 
                 elapsedMinutes, elapsedSeconds, totalMinutes, totalSeconds);
+    }
+
+
+    // Durtai duu bolgoh 
+    private void handleFavorite() {
+        if (selectedSong == null) {
+            System.out.println("Дуу сонгоогүй байна.");
+            return;
+        }
+
+       
+        boolean newFavoriteStatus = !selectedSong.isFavorite();
+        
+        boolean success = SongDAO.updateFavoriteStatus(selectedSong.getId(), newFavoriteStatus);
+        if (success) {
+            selectedSong.setFavorite(newFavoriteStatus); 
+            
+            if (newFavoriteStatus) {
+                btnFavorite.setStyle("-fx-text-fill: red;"); // Durtai bol ulaan bolno
+                System.out.println("Дуртай дуугаар тэмдэглэлээ");
+            } else {
+                btnFavorite.setStyle("-fx-text-fill: black;"); // Tsutslbal har blno
+                System.out.println("Дуртай дуунаас хаслаа.");
+            }
+        }
     }
 }
 

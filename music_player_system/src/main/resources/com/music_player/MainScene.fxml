@@ -57,6 +57,7 @@
               </columns>
             </TableView>
             <Button fx:id="btnAddSong" alignment="CENTER" mnemonicParsing="false" text="Add Song" />
+            <Button mnemonicParsing="false" text="Delete Song" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" top="10.0" />
@@ -91,6 +92,7 @@
                         <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" style="-fx-background-radius: 30;" text="▶" />
                         <Button mnemonicParsing="false" text="&gt;" />
                         <Button fx:id="btnPause" mnemonicParsing="false" text="=" />
+                        <Button fx:id="btnFavorite" mnemonicParsing="false" text="Favorite" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
