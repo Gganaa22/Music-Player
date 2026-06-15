@@ -37,7 +37,7 @@ public class MainController {
     private TableColumn<Song, String> colTitle;
 
     @FXML
-    private ListView<?> listPlayeList;
+    private ListView<String> listPlayeList;
 
     @FXML
     private TableView<Song> tblSongs;
@@ -82,6 +82,9 @@ public class MainController {
     private Button btnAllSongs;
     @FXML 
     private Button btnShowFavorites;
+
+    @FXML 
+    private Button btnCreatePlaylist;
     
 
     @FXML
@@ -208,6 +211,35 @@ public class MainController {
                 return song.isFavorite(); 
             });
             System.out.println("Зөвхөн дуртай дуунуудыг шүүж харууллаа ");
+        });
+
+
+
+        // Ajillj ehlhd databased baigaa playlistuudiig listView deer gargana
+        ObservableList<String> playlists = FXCollections.observableArrayList(com.music_player.Database.PlaylistDAO.getAllPlaylists());
+        listPlayeList.setItems(playlists);
+
+        // "+ Playlist" tovchluur darahad jijig tsonh(textInputDialog) gargaj ner avna
+        btnCreatePlaylist.setOnAction(event -> {
+            javafx.scene.control.TextInputDialog dialog = new javafx.scene.control.TextInputDialog();
+            dialog.setTitle("Шинэ плейлист");
+            dialog.setHeaderText(null);
+            dialog.setContentText("Плейлистийн нэр:");
+
+            java.util.Optional<String> result = dialog.showAndWait();
+            result.ifPresent(name -> {
+                if (!name.trim().isEmpty()) {
+                    boolean success = com.music_player.Database.PlaylistDAO.createPlaylist(name.trim());
+                    if (success) {
+                        System.out.println("Плейлист амжилттай үүслээ: " + name);
+                        
+                        playlists.clear();
+                        playlists.addAll(com.music_player.Database.PlaylistDAO.getAllPlaylists());
+                    } else {
+                        System.out.println("Плейлист үүсгэж чадсангүй (Магадгүй нэр давхардсан).");
+                    }
+                }
+            });
         });
     }
 
