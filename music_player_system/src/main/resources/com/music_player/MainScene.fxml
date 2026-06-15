@@ -35,8 +35,10 @@
       </HBox>
    </top>
    <left>
-      <VBox prefHeight="300.0" prefWidth="183.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="331.0" prefWidth="188.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
+            <Button fx:id="btnAllSongs" mnemonicParsing="false" text="Бүх дуунууд" />
+            <Button fx:id="btnShowFavorites" mnemonicParsing="false" text="Дуртай дуунууд" />
             <Label text="Playelist:" />
             <Button mnemonicParsing="false" text="+ Playelist" />
             <ListView fx:id="listPlayeList" prefHeight="255.0" prefWidth="100.0" />

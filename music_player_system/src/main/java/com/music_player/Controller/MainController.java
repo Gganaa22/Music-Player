@@ -77,6 +77,11 @@ public class MainController {
 
     @FXML
     private Button btnDelete;
+
+    @FXML 
+    private Button btnAllSongs;
+    @FXML 
+    private Button btnShowFavorites;
     
 
     @FXML
@@ -189,7 +194,21 @@ public class MainController {
 
         
         btnFavorite.setOnAction(event -> handleFavorite());
-        btnDelete.setOnAction(event -> handleDelete());    
+        btnDelete.setOnAction(event -> handleDelete()); 
+        
+        // "Бүх дуунууд" tovchiig darahad shuultuuriig arilgaj buh duug haruulna
+        btnAllSongs.setOnAction(event -> {
+            filteredData.setPredicate(song -> true);
+            System.out.println("Бүх дууны жагсаалт.");
+        });
+
+        // "Дуртай дуунууд" tovchiig darahad zovhon favorite=true duunuudiig shuuj haruulna 
+        btnShowFavorites.setOnAction(event -> {
+            filteredData.setPredicate(song -> {
+                return song.isFavorite(); 
+            });
+            System.out.println("Зөвхөн дуртай дуунуудыг шүүж харууллаа ");
+        });
     }
 
         private void prepareSong(String fileName) {
