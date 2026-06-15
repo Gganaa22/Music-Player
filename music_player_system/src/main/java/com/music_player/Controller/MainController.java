@@ -244,9 +244,26 @@ public class MainController {
                 }
             });
 
-            // Duu duusahad tovchluuriin textiig butsaagaad "▶" bolgoh 
+            // Duu duusahad daraagiin duu avtomataar togluulh
             mediaPlayer.setOnEndOfMedia(() -> {
-                btnPlay.setText("▶");
+                // Odoo idevhtei baigaa duunii indexiig TableView ees olj avah 
+                int currentIndex = tblSongs.getSelectionModel().getSelectedIndex();
+                int nextIndex = currentIndex + 1;
+
+
+                if (nextIndex < tblSongs.getItems().size()) {
+                    tblSongs.getSelectionModel().select(nextIndex);
+                    
+                    
+                    if (mediaPlayer != null) {
+                        mediaPlayer.play();
+                        btnPlay.setText("⏸"); 
+                        System.out.println("Дараагийн дуу автоматаар эхэллээ: " + selectedSong.getTitle());
+                    }
+                } else {
+                    btnPlay.setText("▶");
+                    System.out.println("Жагсаалтын бүх дуу дууслаа.");
+                }
             });
 
             mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
