@@ -38,4 +38,34 @@ public class PlaylistDAO {
         }
         return list;
     }
+
+// Playlist ruu holboj hadgalah function
+    public static boolean addSongToPlaylist(String playlistName, int songId) {
+        // Ehleed playlistiin nereer id-g ni olj avna
+        String getPlaylistIdSql = "SELECT id FROM playlists WHERE playlist_name = ?";
+        String insertSql = "INSERT INTO playlist_songs (playlist_id, song_id) VALUES (?, ?)";
+        
+        try {
+            Connection conn = DBConnection.getConnection();
+            
+            // Playlist id avah 
+            PreparedStatement ps1 = conn.prepareStatement(getPlaylistIdSql);
+            ps1.setString(1, playlistName);
+            ResultSet rs = ps1.executeQuery();
+            
+            if (rs.next()) {
+                int playlistId = rs.getInt("id");
+                
+                // Dundiin husnegt ruu hadgalah
+                PreparedStatement ps2 = conn.prepareStatement(insertSql);
+                ps2.setInt(1, playlistId);
+                ps2.setInt(2, songId);
+                
+                return ps2.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            System.out.println("Плейлист рүү дуу нэмэхэд алдаа: " + e.getMessage());
+        }
+        return false;
+    }
 }

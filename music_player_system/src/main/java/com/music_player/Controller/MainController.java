@@ -85,6 +85,9 @@ public class MainController {
 
     @FXML 
     private Button btnCreatePlaylist;
+
+    @FXML 
+    private Button btnAddToPlaylist;
     
 
     @FXML
@@ -241,6 +244,60 @@ public class MainController {
                 }
             });
         });
+
+
+        //  "Add to Playlist" darahad ajillna
+        btnAddToPlaylist.setOnAction(event -> {
+            // husnegtees songogdson duug avah
+            Song selected = tblSongs.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                System.out.println("Плейлист рүү нэмэх дуугаа сонгоно уу!");
+                
+                // duu oruulaagui bol alert haruulna
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+                alert.setTitle("Анхааруулга");
+                alert.setHeaderText(null);
+                alert.setContentText("Уучлаарай, эхлээд хүснэгтээс плейлист рүү нэмэх дуугаа сонгоно уу.");
+                alert.showAndWait();
+                return;
+            }
+
+            // Database ees odoo baigaa buh playlist iig unshij avah 
+            java.util.List<String> allPlaylists = com.music_player.Database.PlaylistDAO.getAllPlaylists();
+
+            if (allPlaylists.isEmpty()) {
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+                alert.setTitle("Мэдээлэл");
+                alert.setHeaderText(null);
+                alert.setContentText("Одоогоор ямар нэгэн плейлист үүсээгүй байна. Эхлээд зүүн талын '+ Playlist' товчоор плейлист үүсгэнэ үү.");
+                alert.showAndWait();
+                return;
+            }
+
+            //Playlist songoh tsonh (ChoiceDialog) uusgene
+            javafx.scene.control.ChoiceDialog<String> dialog = new javafx.scene.control.ChoiceDialog<>(allPlaylists.get(0), allPlaylists);
+            dialog.setTitle("Плейлист сонгох");
+            dialog.setHeaderText("'" + selected.getTitle() + "' дууг аль плейлист рүү нэмэх вэ?");
+            dialog.setContentText("Плейлистүүд:");
+
+            // hereglegchiin songoltiig huleeh
+            java.util.Optional<String> result = dialog.showAndWait();
+            result.ifPresent(playlistName -> {
+                // Songoson playlist ruu duug database ruu hadgalah
+                boolean success = com.music_player.Database.PlaylistDAO.addSongToPlaylist(playlistName, selected.getId());
+                if (success) {
+                    javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+                    alert.setTitle("Амжилттай");
+                    alert.setHeaderText(null);
+                    alert.setContentText("'" + selected.getTitle() + "' дуу '" + playlistName + "' плейлист рүү амжилттай нэмэгдлээ.");
+                    alert.showAndWait();
+                } else {
+                    System.out.println("Дууг нэмэхэд алдаа гарлаа эсвэл бааз руу орж чадсангүй.");
+                }
+            });
+        });
+
+        
     }
 
         private void prepareSong(String fileName) {

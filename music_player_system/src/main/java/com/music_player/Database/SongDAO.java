@@ -92,4 +92,34 @@ public class SongDAO {
         }
     }
 
+    //  Плейлист рүү дуу холбож хадгалах функц
+    public static boolean addSongToPlaylist(String playlistName, int songId) {
+        // Эхлээд плейлистийн нэрээр ID-г нь олж авна
+        String getPlaylistIdSql = "SELECT id FROM playlists WHERE playlist_name = ?";
+        String insertSql = "INSERT INTO playlist_songs (playlist_id, song_id) VALUES (?, ?)";
+        
+        try {
+            Connection conn = DBConnection.getConnection();
+            
+            // 1. Плейлист ID авах
+            PreparedStatement ps1 = conn.prepareStatement(getPlaylistIdSql);
+            ps1.setString(1, playlistName);
+            ResultSet rs = ps1.executeQuery();
+            
+            if (rs.next()) {
+                int playlistId = rs.getInt("id");
+                
+                // 2. Дундын хүснэгт рүү хадгалах
+                PreparedStatement ps2 = conn.prepareStatement(insertSql);
+                ps2.setInt(1, playlistId);
+                ps2.setInt(2, songId);
+                
+                return ps2.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            System.out.println("Плейлист рүү дуу нэмэхэд алдаа: " + e.getMessage());
+        }
+        return false;
+    }
+
 }
