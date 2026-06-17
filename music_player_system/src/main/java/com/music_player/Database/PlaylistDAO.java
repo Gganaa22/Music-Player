@@ -68,4 +68,25 @@ public class PlaylistDAO {
         }
         return false;
     }
+
+
+    // Tuhain playlisted baigaa duunuudiig ID-g jagsaalt bolgoj avah 
+    public static List<Integer> getSongIdsInPlaylist(String playlistName) {
+        List<Integer> songIds = new ArrayList<>();
+        String sql = "SELECT ps.song_id FROM playlist_songs ps " +
+                     "JOIN playlists p ON ps.playlist_id = p.id " +
+                     "WHERE p.playlist_name = ?";
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, playlistName);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                songIds.add(rs.getInt("song_id"));
+            }
+        } catch (Exception e) {
+            System.out.println("Плейлистийн дуунуудыг уншихад алдаа: " + e.getMessage());
+        }
+        return songIds;
+    }
 }

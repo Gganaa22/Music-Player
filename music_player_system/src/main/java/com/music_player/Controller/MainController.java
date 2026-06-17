@@ -222,6 +222,21 @@ public class MainController {
         ObservableList<String> playlists = FXCollections.observableArrayList(com.music_player.Database.PlaylistDAO.getAllPlaylists());
         listPlayeList.setItems(playlists);
 
+        //playlist deer darah uyd husnegtiig shuuj haruulah 
+        listPlayeList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // Databasees tuhain playlisted hamaarah duunii ID-nuudiig shuuj avna
+                java.util.List<Integer> allowedSongIds = com.music_player.Database.PlaylistDAO.getSongIdsInPlaylist(newValue);
+                
+                //Husnegt deer zovhon ter ID-tai duunuudiig uldeej shuultuur tavina  
+                filteredData.setPredicate(song -> {
+                    return allowedSongIds.contains(song.getId());
+                });
+                
+                System.out.println("'" + newValue + "' плейлистийн дуунуудыг харуулж байна.");
+            }
+        });
+
         // "+ Playlist" tovchluur darahad jijig tsonh(textInputDialog) gargaj ner avna
         btnCreatePlaylist.setOnAction(event -> {
             javafx.scene.control.TextInputDialog dialog = new javafx.scene.control.TextInputDialog();
