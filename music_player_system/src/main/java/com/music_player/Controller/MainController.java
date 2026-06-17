@@ -204,12 +204,15 @@ public class MainController {
         
         // "Бүх дуунууд" tovchiig darahad shuultuuriig arilgaj buh duug haruulna
         btnAllSongs.setOnAction(event -> {
+            listPlayeList.getSelectionModel().clearSelection();
+            txtSearch.clear();
             filteredData.setPredicate(song -> true);
             System.out.println("Бүх дууны жагсаалт.");
         });
 
         // "Дуртай дуунууд" tovchiig darahad zovhon favorite=true duunuudiig shuuj haruulna 
         btnShowFavorites.setOnAction(event -> {
+            listPlayeList.getSelectionModel().clearSelection();//playlist songoltiig arilgah
             filteredData.setPredicate(song -> {
                 return song.isFavorite(); 
             });
@@ -225,6 +228,8 @@ public class MainController {
         //playlist deer darah uyd husnegtiig shuuj haruulah 
         listPlayeList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+                txtSearch.clear(); //playlist songoh uyd hailtiin text iig tseverlne
+
                 // Databasees tuhain playlisted hamaarah duunii ID-nuudiig shuuj avna
                 java.util.List<Integer> allowedSongIds = com.music_player.Database.PlaylistDAO.getSongIdsInPlaylist(newValue);
                 
@@ -306,6 +311,12 @@ public class MainController {
                     alert.setHeaderText(null);
                     alert.setContentText("'" + selected.getTitle() + "' дуу '" + playlistName + "' плейлист рүү амжилттай нэмэгдлээ.");
                     alert.showAndWait();
+
+                    //Herev hereglegch odoo yg ter nemsen playlist deeree zogsoj baival tableView-iig shuud shinechilne 
+                    String currentSelectedPlaylist = listPlayeList.getSelectionModel().getSelectedItem();
+                    if (currentSelectedPlaylist != null && currentSelectedPlaylist.equals(playlistName)) {
+                        java.util.List<Integer> allowedSongIds = com.music_player.Database.PlaylistDAO.getSongIdsInPlaylist(playlistName);
+                        filteredData.setPredicate(song -> allowedSongIds.contains(song.getId()));
                 } else {
                     System.out.println("Дууг нэмэхэд алдаа гарлаа эсвэл бааз руу орж чадсангүй.");
                 }
