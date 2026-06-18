@@ -89,4 +89,32 @@ public class PlaylistDAO {
         }
         return songIds;
     }
+
+    public static boolean removeSongFromPlaylist(String playlistName, int songId) {
+
+        String getPlaylistIdSql = "SELECT id FROM playlists WHERE playlist_name = ?";
+        String deleteSql = "DELETE FROM playlist_songs WHERE playlist_id = ? AND song_id = ?";
+        
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement pstmt1 = conn.prepareStatement(getPlaylistIdSql);
+            
+            pstmt1.setString(1, playlistName);
+            ResultSet rs = pstmt1.executeQuery();
+            
+            if (rs.next()) {
+                int playlistId = rs.getInt("id");
+                
+                PreparedStatement pstmt2 = conn.prepareStatement(deleteSql);
+                pstmt2.setInt(1, playlistId);
+                pstmt2.setInt(2, songId);
+                
+                int rows = pstmt2.executeUpdate();
+                return rows > 0; 
+            }
+        } catch (Exception e) {
+            System.out.println("Плейлистээс дуу хасахад алдаа: " + e.getMessage());
+        }
+        return false;
+    }
 }

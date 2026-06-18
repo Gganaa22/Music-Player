@@ -88,6 +88,9 @@ public class MainController {
 
     @FXML 
     private Button btnAddToPlaylist;
+
+    @FXML 
+    private Button btnRemoveFromPlaylist; 
     
 
     @FXML
@@ -315,12 +318,57 @@ public class MainController {
                     //Herev hereglegch odoo yg ter nemsen playlist deeree zogsoj baival tableView-iig shuud shinechilne 
                     String currentSelectedPlaylist = listPlayeList.getSelectionModel().getSelectedItem();
                     if (currentSelectedPlaylist != null && currentSelectedPlaylist.equals(playlistName)) {
-                        java.util.List<Integer> allowedSongIds = com.music_player.Database.PlaylistDAO.getSongIdsInPlaylist(playlistName);
-                        filteredData.setPredicate(song -> allowedSongIds.contains(song.getId()));
-                } else {
+                        final java.util.List<Integer> allowedSongIds = com.music_player.Database.PlaylistDAO.getSongIdsInPlaylist(playlistName);
+                        filteredData.setPredicate(song -> allowedSongIds.contains(song.getId()));}
+                    } else {
                     System.out.println("Дууг нэмэхэд алдаа гарлаа эсвэл бааз руу орж чадсангүй.");
                 }
             });
+        });
+
+
+        // "Remove from Playlist" darahad ajillana 
+        btnRemoveFromPlaylist.setOnAction(event -> {
+            // Husnegtees songogdson duug avah 
+            Song selected = tblSongs.getSelectionModel().getSelectedItem();
+            // Zuun taliin jagsaaltaas songogdson playlist iig avah
+            String currentSelectedPlaylist = listPlayeList.getSelectionModel().getSelectedItem();
+
+            if (selected == null) {
+                System.out.println("Плейлистээс хасах дуугаа сонгоно уу!");
+                return;
+            }
+
+            if (currentSelectedPlaylist == null) {
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+                alert.setTitle("Анхааруулга");
+                alert.setHeaderText(null);
+                alert.setContentText("Та эхлээд зүүн талын жагсаалтаас плейлистээ сонгоод, дараа нь хасах дуугаа сонгоно уу.");
+                alert.showAndWait();
+                return;
+            }
+
+            //Ustgah uu gej asuuh alert
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Плейлистээс хасах");
+            alert.setHeaderText(null);
+            alert.setContentText("'" + selected.getTitle() + "' дууг '" + currentSelectedPlaylist + "' плейлистээс хасахдаа итгэлтэй байна уу?");
+
+            java.util.Optional<javafx.scene.control.ButtonType> confirmResult = alert.showAndWait();
+            if (confirmResult.isPresent() && confirmResult.get() == javafx.scene.control.ButtonType.OK) {
+                // Database ees hasah function iig duudah 
+                boolean success = com.music_player.Database.PlaylistDAO.removeSongFromPlaylist(currentSelectedPlaylist, selected.getId());
+                
+                if (success) {
+                    System.out.println("Дууг плейлистээс амжилттай хаслаа.");
+                    
+                    //TableView iig shinechilne
+                    final java.util.List<Integer> allowedSongIds = com.music_player.Database.PlaylistDAO.getSongIdsInPlaylist(currentSelectedPlaylist);
+                    filteredData.setPredicate(song -> allowedSongIds.contains(song.getId()));
+                } else {
+                    System.out.println("Дууг хасахад алдаа гарлаа.");
+                }
+            }
         });
 
         

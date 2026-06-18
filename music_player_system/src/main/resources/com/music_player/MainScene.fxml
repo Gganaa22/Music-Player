@@ -60,7 +60,12 @@
             </TableView>
             <Button fx:id="btnAddSong" alignment="CENTER" mnemonicParsing="false" text="Add Song" />
             <Button fx:id="btnDelete" mnemonicParsing="false" text="Delete Song" />
-            <Button fx:id="btnAddToPlaylist" mnemonicParsing="false" text="Add to Playlist" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Button fx:id="btnAddToPlaylist" mnemonicParsing="false" text="Add to Playlist" />
+                  <Button fx:id="btnRemoveFromPlaylist" mnemonicParsing="false" text="Remove from Playlist" />
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" top="10.0" />
