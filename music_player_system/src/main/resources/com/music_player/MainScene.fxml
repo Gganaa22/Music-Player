@@ -95,7 +95,7 @@
                <children>
                   <HBox prefHeight="68.0" prefWidth="428.0" spacing="20.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Button fx:id="btnShuffle" mnemonicParsing="false" text="Shuffle" />
                         <Button mnemonicParsing="false" text="&lt;" />
                         <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" style="-fx-background-radius: 30;" text="▶" />
                         <Button mnemonicParsing="false" text="&gt;" />

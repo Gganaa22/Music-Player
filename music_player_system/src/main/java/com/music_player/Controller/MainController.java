@@ -71,6 +71,8 @@ public class MainController {
     private MediaPlayer mediaPlayer;
     private Song selectedSong;
 
+    private boolean isShuffle = false;
+
 
     @FXML 
     private Button btnFavorite;
@@ -91,6 +93,9 @@ public class MainController {
 
     @FXML 
     private Button btnRemoveFromPlaylist; 
+
+    @FXML
+    private Button btnShuffle;
     
 
     @FXML
@@ -154,6 +159,18 @@ public class MainController {
 
         // Neg tovchluurt Play/pause logic holboh
         btnPlay.setOnAction(event -> handlePlayPause());
+
+        // Shuffle tovchluuriin logic
+        btnShuffle.setOnAction(event -> {
+            isShuffle = !isShuffle; // Toloviig solino(true -> false / false -> true)
+            if (isShuffle) {
+                btnShuffle.setStyle("-fx-text-fill: green; -fx-font-weight: bold;"); // Idevhtei uyd nogoon
+                System.out.println("Санамсаргүй тоглуулах (Shuffle) горим идэвхжлээ.");
+            } else {
+                btnShuffle.setStyle("-fx-text-fill: black;"); //Idevhgui bol har 
+                System.out.println("Дарааллаар тоглуулах горимд шилжлээ.");
+            }
+        });
 
         // Volume Slider-iin utga oorchlogdoh buriig mederch duunii changiig tohiruulh
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -413,6 +430,17 @@ public class MainController {
                 int currentIndex = tblSongs.getSelectionModel().getSelectedIndex();
                 int nextIndex = currentIndex + 1;
 
+
+                // Herev Shuffle idevhtei baival sanamsargui index songono 
+                if (isShuffle && tblSongs.getItems().size() > 1) {
+                    java.util.Random random = new java.util.Random();
+                    do {
+                        nextIndex = random.nextInt(tblSongs.getItems().size());
+                    } while (nextIndex == currentIndex); //Yg odoo togloj baigaa duug dahin davtahgui baih hamgaallt 
+                } else {
+                    // Shuffle idevhgui bol daraallr
+                    nextIndex = currentIndex + 1;
+                }
 
                 if (nextIndex < tblSongs.getItems().size()) {
                     tblSongs.getSelectionModel().select(nextIndex);
