@@ -22,6 +22,8 @@ import javafx.collections.transformation.SortedList;
 import com.music_player.Database.SongDAO;
 import com.music_player.Model.Song;
 
+import javafx.scene.image.ImageView;
+
 public class MainController {
 
     @FXML
@@ -97,6 +99,11 @@ public class MainController {
     private Button btnPrevious;
     @FXML 
     private Button btnNext;
+
+    @FXML 
+    private ImageView imgDisc; 
+
+    private javafx.animation.RotateTransition rotateTransition; //erguulah animats hadgalah huvisagch
     
 
     @FXML
@@ -433,6 +440,20 @@ public class MainController {
             }
         });
 
+        // Ergelddg animatsiin tohirgoo
+        rotateTransition = new javafx.animation.RotateTransition(javafx.util.Duration.seconds(5), imgDisc); // 5 secondnd 1 buten ergene
+        rotateTransition.setByAngle(360); // 360 gradus ergene
+        rotateTransition.setCycleCount(javafx.animation.Animation.INDEFINITE); // Hyzgaargui urgeljilne
+        rotateTransition.setInterpolator(javafx.animation.Interpolator.LINEAR); // hurd ni jigd
+
+ // Zurgiin hemjeeg todorhoi zaaj ogoh
+        imgDisc.setFitWidth(150);
+        imgDisc.setFitHeight(150);
+        imgDisc.setPreserveRatio(false); // Dorvoljin helbertei bolgoj shahah
+
+        // Yg gold ni 75 radiustai toirog uusgeh 
+        javafx.scene.shape.Circle clip = new javafx.scene.shape.Circle(75, 75, 75);
+        imgDisc.setClip(clip);
         
     }
 
@@ -523,12 +544,16 @@ public class MainController {
             mediaPlayer.pause();
             btnPlay.setText("▶");
             System.out.println("Түр зогслоо.");
+
+            rotateTransition.pause();
         } 
         // Herev duug zogsson esvel belen baival togluulna 
         else {
             mediaPlayer.play();
             btnPlay.setText("⏸"); // Tovchluuriin dursiig Pause bolgono
             System.out.println("Тоглож байна: " + selectedSong.getTitle());
+
+            rotateTransition.play();
         }
     }
 
