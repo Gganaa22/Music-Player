@@ -16,20 +16,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.music_player.Controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="725.0" style="-fx-background-color: linear-gradient(to bottom, #09203f 0%, #134e5e 100%);;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.music_player.Controller.MainController">
    <top>
       <HBox prefHeight="54.0" prefWidth="684.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="27.0" prefWidth="56.0" text="GBeat ">
+            <Label prefHeight="35.0" prefWidth="70.0" style="-fx-border-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-border-radius: 10; -fx-text-fill: white;" text="GBeat ">
                <font>
                   <Font name="System Bold" size="18.0" />
-               </font></Label>
-            <Label text="Дуу хайх:">
+               </font>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding></Label>
+            <Label style="-fx-text-fill: white;" text="Дуу хайх:">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="txtSearch" prefHeight="26.0" prefWidth="405.0" />
+            <TextField fx:id="txtSearch" prefHeight="26.0" prefWidth="506.0" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);;" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -42,45 +45,33 @@
    <left>
       <VBox prefHeight="331.0" prefWidth="188.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnAllSongs" mnemonicParsing="false" text="Бүх дуунууд" />
-            <Button fx:id="btnShowFavorites" mnemonicParsing="false" text="Дуртай дуунууд" />
-            <Label text="Playelist:" />
-            <Button fx:id="btnCreatePlaylist" mnemonicParsing="false" text="+ Playelist" />
-            <ListView fx:id="listPlayeList" prefHeight="255.0" prefWidth="100.0" />
+            <Button fx:id="btnAllSongs" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-background-radius: 10; -fx-text-fill: white; -fx-border-radius: 10; -fx-border-color: white;" text="Бүх дуунууд">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnShowFavorites" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Дуртай дуунууд">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Label prefHeight="19.0" prefWidth="61.0" style="-fx-border-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="Playelist:">
+               <padding>
+                  <Insets left="5.0" />
+               </padding></Label>
+            <Button fx:id="btnCreatePlaylist" mnemonicParsing="false" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="+ Playelist">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <ListView fx:id="listPlayeList" prefHeight="255.0" prefWidth="100.0" style="-fx-border-color: #00ffff; -fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);" />
          </children>
          <padding>
             <Insets bottom="10.0" right="10.0" />
          </padding>
       </VBox>
    </left>
-   <center>
-      <VBox prefHeight="300.0" prefWidth="537.0" spacing="10.0" BorderPane.alignment="TOP_CENTER">
-         <children>
-            <TableView fx:id="tblSongs" prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn fx:id="colTitle" prefWidth="215.20007646083832" text="Дууны нэр " />
-                <TableColumn fx:id="colArtist" minWidth="4.79998779296875" prefWidth="107.99998474121094" text="Дуучин" />
-                  <TableColumn fx:id="colGenre" prefWidth="188.00009155273438" text="Төрөл" />
-              </columns>
-            </TableView>
-            <Button fx:id="btnAddSong" alignment="CENTER" mnemonicParsing="false" text="Add Song" />
-            <Button fx:id="btnDelete" mnemonicParsing="false" text="Delete Song" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <Button fx:id="btnAddToPlaylist" mnemonicParsing="false" text="Add to Playlist" />
-                  <Button fx:id="btnRemoveFromPlaylist" mnemonicParsing="false" text="Remove from Playlist" />
-               </children>
-            </HBox>
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" top="10.0" />
-         </padding>
-      </VBox>
-   </center>
    <bottom>
       <HBox prefHeight="236.0" prefWidth="706.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="229.0" prefWidth="214.0" spacing="10.0">
+            <VBox prefHeight="215.0" prefWidth="246.0" spacing="10.0" style="-fx-border-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-border-radius: 30;">
                <children>
                   <ImageView fx:id="imgDisc" fitHeight="132.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -88,40 +79,55 @@
                      </image></ImageView>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label layoutY="5.0" text="Дууны нэр:" />
-                        <Label layoutY="40.0" text="Дуучин:" />
-                        <Label fx:id="lblSongName" layoutX="68.0" layoutY="5.0" text="Label" />
-                        <Label fx:id="lblArtist" layoutX="54.0" layoutY="40.0" text="Label" />
+                        <Label layoutY="5.0" style="-fx-border-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="Дууны нэр:" />
+                        <Label layoutY="40.0" style="-fx-border-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="Дуучин:" />
+                        <Label fx:id="lblSongName" layoutX="68.0" layoutY="5.0" style="-fx-text-fill: white;" text="Label" />
+                        <Label fx:id="lblArtist" layoutX="54.0" layoutY="40.0" style="-fx-text-fill: white;" text="Label" />
                      </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" />
+                     </padding>
                   </AnchorPane>
                </children>
                <padding>
-                  <Insets left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="15.0" right="10.0" top="10.0" />
                </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </VBox>
             <VBox prefHeight="195.0" prefWidth="482.0" spacing="10.0">
                <children>
                   <HBox prefHeight="68.0" prefWidth="428.0" spacing="20.0">
                      <children>
-                        <Button fx:id="btnShuffle" mnemonicParsing="false" text="Shuffle" />
-                        <Button fx:id="btnPrevious" mnemonicParsing="false" text="⏮" />
-                        <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" style="-fx-background-radius: 30;" text="▶" />
-                        <Button fx:id="btnNext" mnemonicParsing="false" text="⏭" />
-                        <Button fx:id="btnFavorite" mnemonicParsing="false" text="Favorite" />
+                        <Button fx:id="btnShuffle" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="Shuffle">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                        <Button fx:id="btnPrevious" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="⏮">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                        <Button fx:id="btnPlay" minWidth="30.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="▶" />
+                        <Button fx:id="btnNext" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="⏭" />
+                        <Button fx:id="btnFavorite" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="Favorite">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="98.0" prefWidth="369.0">
+                        <VBox prefHeight="98.0" prefWidth="369.0" spacing="15.0">
                            <children>
-                              <Slider fx:id="progressSlider" minWidth="200.0" />
+                              <Slider fx:id="progressSlider" minWidth="200.0" style="-fx-accent: #1DB954;" />
                               <Slider fx:id="volumeSlider" minWidth="200.0" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="98.0" prefWidth="150.0">
+                        <VBox prefHeight="98.0" prefWidth="150.0" spacing="10.0">
                            <children>
-                              <Label fx:id="lblTime" text="Progress" />
-                              <Label text="Volume" />
+                              <Label fx:id="lblTime" style="-fx-text-fill: white;" text="Progress" />
+                              <Label style="-fx-text-fill: white;" text="Volume" />
                            </children>
                         </VBox>
                      </children>
@@ -140,4 +146,40 @@
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
+   <right>
+      <VBox prefHeight="300.0" prefWidth="537.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tblSongs" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);">
+              <columns>
+                <TableColumn fx:id="colTitle" prefWidth="215.20007646083832" style="-fx-border-color: #00ffff; -fx-background-color: white;" text="Дууны нэр " />
+                <TableColumn fx:id="colArtist" minWidth="4.79998779296875" prefWidth="107.99998474121094" style="-fx-border-color: #00ffff; -fx-background-color: white;" text="Дуучин" />
+                  <TableColumn fx:id="colGenre" prefWidth="188.00009155273438" style="-fx-border-color: #00ffff; -fx-background-color: white;" text="Төрөл" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnAddSong" alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="103.0" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white; -fx-text-fill: white;" text="Add Song">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-background-radius: 10; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10;" text="Delete Song">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Button fx:id="btnAddToPlaylist" mnemonicParsing="false" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Add to Playlist">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button fx:id="btnRemoveFromPlaylist" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Remove from Playlist">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </right>
 </BorderPane>

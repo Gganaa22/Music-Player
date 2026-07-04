@@ -191,6 +191,12 @@ public class MainController {
                 System.out.println("Жагсаалт дууссан тул эхнээс нь эхлүүллээ.");
                 tblSongs.getSelectionModel().select(0); 
             }
+
+            if (mediaPlayer != null) {
+                mediaPlayer.play();
+                btnPlay.setText("⏸"); 
+                rotateTransition.play(); 
+            }
         });
 
         // Omnoh duu tovchluur
@@ -209,6 +215,12 @@ public class MainController {
                     System.out.println("Жагсаалтын эхэнд хүрсэн тул хамгийн сүүлчийн дуу руу шилжлээ.");
                     tblSongs.getSelectionModel().select(lastIndex);
                 }
+            }
+
+            if (mediaPlayer != null) {
+                mediaPlayer.play();
+                btnPlay.setText("⏸"); 
+                rotateTransition.play(); 
             }
         });
 
