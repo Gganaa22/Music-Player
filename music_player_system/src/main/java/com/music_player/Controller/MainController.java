@@ -45,10 +45,6 @@ public class MainController {
     @FXML
     private TextField txtSearch;
 
-
-    @FXML
-    private Button btnPause;
-
     @FXML
     private Button btnPlay;
 
@@ -96,6 +92,11 @@ public class MainController {
 
     @FXML
     private Button btnShuffle;
+
+    @FXML 
+    private Button btnPrevious;
+    @FXML 
+    private Button btnNext;
     
 
     @FXML
@@ -159,6 +160,50 @@ public class MainController {
 
         // Neg tovchluurt Play/pause logic holboh
         btnPlay.setOnAction(event -> handlePlayPause());
+
+
+        // Daraagiin duunii tovchluur
+        btnNext.setOnAction(event -> {
+            int currentIndex = tblSongs.getSelectionModel().getSelectedIndex();
+            int nextIndex;
+
+            // herev Shuffle idevhtei bol sanamsargui duu ruu shiljine 
+            if (isShuffle && tblSongs.getItems().size() > 1) {
+                java.util.Random random = new java.util.Random();
+                do {
+                    nextIndex = random.nextInt(tblSongs.getItems().size());
+                } while (nextIndex == currentIndex);
+            } else {
+                // Shuffle idevhgui bol daraagiin duu ruu shiljine
+                nextIndex = currentIndex + 1;
+            }
+
+            if (nextIndex < tblSongs.getItems().size()) {
+                tblSongs.getSelectionModel().select(nextIndex);
+            } else {
+                System.out.println("Жагсаалт дууссан тул эхнээс нь эхлүүллээ.");
+                tblSongs.getSelectionModel().select(0); 
+            }
+        });
+
+        // Omnoh duu tovchluur
+        btnPrevious.setOnAction(event -> {
+            int currentIndex = tblSongs.getSelectionModel().getSelectedIndex();
+            
+            //Omnoh duunii index 0 ees ih baih ystoi 
+            int prevIndex = currentIndex - 1;
+
+            if (prevIndex >= 0) {
+                tblSongs.getSelectionModel().select(prevIndex); // TableView deer omnoh duug songoh
+            } else {
+                int lastIndex = tblSongs.getItems().size() - 1;
+                
+                if (lastIndex >= 0) {
+                    System.out.println("Жагсаалтын эхэнд хүрсэн тул хамгийн сүүлчийн дуу руу шилжлээ.");
+                    tblSongs.getSelectionModel().select(lastIndex);
+                }
+            }
+        });
 
         // Shuffle tovchluuriin logic
         btnShuffle.setOnAction(event -> {
