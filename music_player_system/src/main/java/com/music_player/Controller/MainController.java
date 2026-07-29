@@ -71,6 +71,9 @@ public class MainController {
 
     private boolean isShuffle = false;
 
+    private ObservableList<Song> songs = FXCollections.observableArrayList(); 
+    private FilteredList<Song> filteredData;
+
 
     @FXML 
     private Button btnFavorite;
@@ -113,11 +116,11 @@ public class MainController {
         colArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         colGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
 
-        // 1.Baazaas buh duug unshij undsen jagsaaltand avna
-        ObservableList<Song> songs = FXCollections.observableArrayList(SongDAO.getAllSongs());
+        // 1.global jagsaalt ruugaa datag achaallna
+            songs.addAll(SongDAO.getAllSongs());
 
-        // 2.Undsen jagsaaltiig FilteredList-eer orooj shuuhed belen bolgono
-        FilteredList<Song> filteredData = new FilteredList<>(songs, p -> true);
+        // 2. Global filteredData-g onooj ogno 
+        filteredData = new FilteredList<>(songs, p -> true);
 
         // 3. txtSearch deer text bich burt ajillah logic 
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -273,8 +276,8 @@ public class MainController {
                 stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
                 stage.showAndWait();
 
-                ObservableList<Song> refreshedSongs = FXCollections.observableArrayList(SongDAO.getAllSongs());
-                tblSongs.setItems(refreshedSongs);
+                songs.clear();
+                songs.addAll(SongDAO.getAllSongs());
 
             } catch(Exception e){
                 System.out.println("Шинэ цонх нээхэл алдаа гарлаа: "+ e.getMessage());
@@ -638,10 +641,17 @@ public class MainController {
                 selectedSong = null;
                 lblSongName.setText("Дуу сонгогдоогүй");
                 lblArtist.setText("");
+                tblSongs.getSelectionModel().clearSelection();
                 
-                // Jagsaaltiig datase ees dahin unshij TableView iig shuud shinechleh
-                ObservableList<Song> refreshedSongs = FXCollections.observableArrayList(SongDAO.getAllSongs());
-                tblSongs.setItems(refreshedSongs);
+                //global jagsaaltaa shinechlene
+                songs.clear();
+                songs.addAll(SongDAO.getAllSongs());
+
+                //Shuultuuriig anhnii baidald ni oruulj buh duug haruulna 
+                filteredData.setPredicate(song -> true);
+                listPlayeList.getSelectionModel().clearSelection();
+            }else{
+                System.out.println("Дууг датабэйсээс устгаж чадсангүй.");
             }
         }
     }

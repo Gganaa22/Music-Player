@@ -11,13 +11,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" spacing="15.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.music_player.Controller.AddSongController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" spacing="15.0" style="-fx-background-color: linear-gradient(to bottom, #09203f 0%, #134e5e 100%);" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.music_player.Controller.AddSongController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <Label text="ШИНЭ ДУУ НЭМЭХ">
+      <Label style="-fx-text-fill: white;" text="ШИНЭ ДУУ НЭМЭХ">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -34,25 +33,46 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Дууны нэр:" />
-            <Label text="Дуучин:" GridPane.rowIndex="1" />
-            <Label text="Төрөл:" GridPane.rowIndex="2" />
-            <Label text="Файл сонгох:" GridPane.rowIndex="3" />
+            <Label style="-fx-text-fill: white;" text="Дууны нэр:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label style="-fx-text-fill: white;" text="Дуучин:" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label style="-fx-text-fill: white;" text="Төрөл:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label style="-fx-text-fill: white;" text="Файл сонгох:" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
             <TextField fx:id="txtTitle" GridPane.columnIndex="1" />
             <TextField fx:id="txtArtist" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtGenre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <TextField fx:id="txtFileName" />
-                  <Button fx:id="btnBrowse" mnemonicParsing="false" onAction="#handleBrowse" text="Сонгох..." />
+                  <Button fx:id="btnBrowse" mnemonicParsing="false" onAction="#handleBrowse" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);" text="Сонгох..." textFill="#f7f7f7">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                </children>
             </HBox>
          </children>
       </GridPane>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#handleSave" text="Хадгалах" />
-            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" text="Цуцлах" />
+            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#handleSave" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);" text="Хадгалах" textFill="#fafafa">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);" text="Цуцлах" textFill="#fcfcfc">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
          </children>
       </HBox>
    </children>

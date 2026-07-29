@@ -78,14 +78,26 @@ public class SongDAO {
 
     // Duug id-gaar ni database-ees ustgah 
     public static boolean deleteSong(int songId) {
-        String sql = "DELETE FROM songs WHERE id = ?";
+        String deletePlaylistSongsSql = "DELETE FROM playlist_songs WHERE song_id = ?";
+        String deleteSongSql = "DELETE FROM songs WHERE id = ?";
         try {
             Connection conn = DBConnection.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, songId);
+            if (conn == null) return false;
+
+            // 1.Ehleed playlist holboltiin husnegtees ustgana(foreign key aldaanas sergiilne) 
+            try (PreparedStatement ps1 = conn.prepareStatement(deletePlaylistSongsSql)) {
+                ps1.setInt(1, songId);
+                ps1.executeUpdate();
+                }
             
-            int rowsDeleted = ps.executeUpdate();
+            // 2. Undsen duunii husnegtees ustgana
+            try (PreparedStatement ps2 = conn.prepareStatement(deleteSongSql)){
+            ps2.setInt(1, songId);
+            
+            int rowsDeleted = ps2.executeUpdate();
             return rowsDeleted > 0; // Amjilttai ustgasan bol true butsaana
+
+            }
         } catch (Exception e) {
             System.out.println("Дуу устгахад алдаа гарлаа: " + e.getMessage());
             return false;
