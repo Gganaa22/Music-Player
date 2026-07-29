@@ -153,6 +153,21 @@ public class MainController {
         // TableView deer duu songoh uyd ajillah heseg 
         tblSongs.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+
+                //oor duu songogdson tul ajillaj baisan hogjmiig buren zogsooj tseverlene
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                    mediaPlayer.dispose(); //Sanah oig buren choloolno
+                    mediaPlayer = null;
+                }
+
+                // UI elementuudiig zogsoono 
+                btnPlay.setText("▶"); 
+                if (rotateTransition != null) {
+                    rotateTransition.pause();
+                    imgDisc.setRotate(0); 
+                }
+
                 selectedSong = newValue;
                 lblSongName.setText(selectedSong.getTitle());
                 lblArtist.setText(selectedSong.getArtist());
@@ -476,6 +491,7 @@ public class MainController {
         try {
             if (mediaPlayer != null) {
                 mediaPlayer.stop();
+                mediaPlayer.dispose();
             }
 
             URL resource = getClass().getResource("/songs/" + fileName);
@@ -542,6 +558,9 @@ public class MainController {
             
             // Shine duu sonsmogts tovchluur "▶" tolovtei baina
             btnPlay.setText("▶");
+            if (rotateTransition != null) {
+            rotateTransition.pause();
+            }
 
         } catch (Exception e) {
             System.out.println("Дууг бэлдэхэд алдаа гарлаа: " + e.getMessage());
