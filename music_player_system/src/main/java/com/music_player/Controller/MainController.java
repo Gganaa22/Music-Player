@@ -107,6 +107,9 @@ public class MainController {
     private ImageView imgDisc; 
 
     private javafx.animation.RotateTransition rotateTransition; //erguulah animats hadgalah huvisagch
+
+    @FXML
+    private Button btnStop;
     
 
     @FXML
@@ -476,7 +479,7 @@ public class MainController {
         rotateTransition.setCycleCount(javafx.animation.Animation.INDEFINITE); // Hyzgaargui urgeljilne
         rotateTransition.setInterpolator(javafx.animation.Interpolator.LINEAR); // hurd ni jigd
 
- // Zurgiin hemjeeg todorhoi zaaj ogoh
+        // Zurgiin hemjeeg todorhoi zaaj ogoh
         imgDisc.setFitWidth(150);
         imgDisc.setFitHeight(150);
         imgDisc.setPreserveRatio(false); // Dorvoljin helbertei bolgoj shahah
@@ -484,6 +487,10 @@ public class MainController {
         // Yg gold ni 75 radiustai toirog uusgeh 
         javafx.scene.shape.Circle clip = new javafx.scene.shape.Circle(75, 75, 75);
         imgDisc.setClip(clip);
+
+
+        // Бүрэн зогсоох (Stop) товчлуурын логик
+        btnStop.setOnAction(event -> handleStop());
         
     }
 
@@ -673,6 +680,30 @@ public class MainController {
                 System.out.println("Дууг датабэйсээс устгаж чадсангүй.");
             }
         }
+    }
+
+    private void handleStop() {
+        if (mediaPlayer == null) return;
+
+        // Hogjmiig buren zogsoono 
+        mediaPlayer.stop();
+
+        //UI elementuudiig anhnii (teg) tolovt oruulna 
+        btnPlay.setText("▶"); 
+        progressSlider.setValue(0); 
+        
+        // Hugatsaas 00:00 bolgono
+        if (mediaPlayer.getTotalDuration() != null) {
+            lblTime.setText(formatTime(javafx.util.Duration.ZERO, mediaPlayer.getTotalDuration()));
+        }
+
+        //Disc nii animationiig zogsoono 
+        if (rotateTransition != null) {
+            rotateTransition.pause();
+            imgDisc.setRotate(0); 
+        }
+
+        System.out.println("Дууг бүрэн зогсоолоо.");
     }
 }
 
