@@ -15,10 +15,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
+import com.music_player.Database.PlaylistDAO;
 import com.music_player.Database.SongDAO;
 import com.music_player.Model.Song;
 
@@ -110,6 +112,8 @@ public class MainController {
 
     @FXML
     private Button btnStop;
+
+    private String currentMode = "ALL";
     
 
     @FXML
@@ -129,21 +133,34 @@ public class MainController {
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(song -> {
 
-                if (newValue == null || newValue.isEmpty()) {
+                //Ehleed odoogiin gorimd Эхлээд одоогийн горимд (Playlist, Favorite, All) niitsej baigaag shalgana 
+                boolean matchesMode = false;
+
+
+                if ("FAVORITES".equals(currentMode)) {
+                    matchesMode = song.isFavorite();
+                } else if ("PLAYLIST".equals(currentMode)) {
+                    String selectedPlaylist = listPlayeList.getSelectionModel().getSelectedItem();
+                    if (selectedPlaylist != null) {
+                        List<Integer> allowedSongIds = PlaylistDAO.getSongIdsInPlaylist(selectedPlaylist);
+                        matchesMode = allowedSongIds.contains(song.getId());
+                    }
+                } else {
+                    matchesMode = true; // ALL gorim
+                }
+
+                // Herev tuhain playlist/durtai duund baihgui bol shuud false 
+                if (!matchesMode) return false;
+
+                //Herev textiin hailt hooson bol odoogiin gorimiin duug haruulna 
+                if (newValue == null || newValue.isEmpty() || newValue.trim().isEmpty()) {
                     return true;
                 }
 
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (song.getTitle().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; 
-                } 
-                
-                else if (song.getArtist().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; 
-                }
-                
-                return false; 
+                //Textiin hailtiig shalgana 
+                String lowerCaseFilter = newValue.toLowerCase().trim();
+                return song.getTitle().toLowerCase().contains(lowerCaseFilter) ||
+                song.getArtist().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
@@ -309,6 +326,7 @@ public class MainController {
         
         // "Бүх дуунууд" tovchiig darahad shuultuuriig arilgaj buh duug haruulna
         btnAllSongs.setOnAction(event -> {
+            currentMode = "ALL";
             listPlayeList.getSelectionModel().clearSelection();
             txtSearch.clear();
             filteredData.setPredicate(song -> true);
@@ -317,6 +335,7 @@ public class MainController {
 
         // "Дуртай дуунууд" tovchiig darahad zovhon favorite=true duunuudiig shuuj haruulna 
         btnShowFavorites.setOnAction(event -> {
+            currentMode = "FAVORITES";
             listPlayeList.getSelectionModel().clearSelection();//playlist songoltiig arilgah
             filteredData.setPredicate(song -> {
                 return song.isFavorite(); 
@@ -333,6 +352,7 @@ public class MainController {
         //playlist deer darah uyd husnegtiig shuuj haruulah 
         listPlayeList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+                currentMode = "PLAYLIST";
                 txtSearch.clear(); //playlist songoh uyd hailtiin text iig tseverlne
 
                 // Databasees tuhain playlisted hamaarah duunii ID-nuudiig shuuj avna
