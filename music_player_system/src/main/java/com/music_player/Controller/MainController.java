@@ -172,7 +172,7 @@ public class MainController {
 
         // TableView deer duu songoh uyd ajillah heseg 
         tblSongs.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+            if (newValue != null && newValue != selectedSong) {
 
                 //oor duu songogdson tul ajillaj baisan hogjmiig buren zogsooj tseverlene
                 if (mediaPlayer != null) {
