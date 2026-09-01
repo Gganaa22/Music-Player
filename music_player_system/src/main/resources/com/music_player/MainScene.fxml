@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="725.0" style="-fx-background-color: linear-gradient(to bottom, #09203f 0%, #134e5e 100%);;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.music_player.Controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="725.0" style="-fx-background-color: linear-gradient(to bottom, #09203f 0%, #134e5e 100%);" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.music_player.Controller.MainController">
    <top>
       <HBox prefHeight="54.0" prefWidth="684.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -181,6 +181,11 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
+                  <Button fx:id="btnDeletePlaylist" mnemonicParsing="false" onAction="#handleDeletePlaylist" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Delete Playlist">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
          </children>

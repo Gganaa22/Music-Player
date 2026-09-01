@@ -117,4 +117,22 @@ public class PlaylistDAO {
         }
         return false;
     }
+
+        public static boolean deletePlaylist(String playlistName) {
+        String deleteSongsSql = "DELETE FROM playlist_songs WHERE playlist_id = (SELECT id FROM playlists WHERE playlist_name = ?)";
+        String deletePlaylistSql = "DELETE FROM playlists WHERE playlist_name = ?";
+        try (Connection conn = DBConnection.getConnection()) {
+            try (PreparedStatement ps1 = conn.prepareStatement(deleteSongsSql)) {
+                ps1.setString(1, playlistName);
+                ps1.executeUpdate();
+            }
+            try (PreparedStatement ps2 = conn.prepareStatement(deletePlaylistSql)) {
+                ps2.setString(1, playlistName);
+                return ps2.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            System.out.println("Алдаа: " + e.getMessage());
+            return false;
+        }
+    }
 }

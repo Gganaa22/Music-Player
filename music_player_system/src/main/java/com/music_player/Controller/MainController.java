@@ -115,6 +115,9 @@ public class MainController {
 
     private String currentMode = "ALL";
     
+    @FXML 
+    private Button btnDeletePlaylist;
+    
 
     @FXML
     public void initialize() {
@@ -511,6 +514,8 @@ public class MainController {
 
         // Бүрэн зогсоох (Stop) товчлуурын логик
         btnStop.setOnAction(event -> handleStop());
+
+        btnDeletePlaylist.setOnAction(event -> handleDeletePlaylist());
         
     }
 
@@ -725,6 +730,50 @@ public class MainController {
 
         System.out.println("Дууг бүрэн зогсоолоо.");
     }
+
+    // Playlist Ustgah
+    @FXML
+    private void handleDeletePlaylist() {
+        // Zuun taliis ListView-ees songoson playlist iin neriig avah 
+        String selectedPlaylist = listPlayeList.getSelectionModel().getSelectedItem();
+
+        if (selectedPlaylist == null) {
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+            alert.setTitle("Анхааруулга");
+            alert.setHeaderText(null);
+            alert.setContentText("Устгах плейлистээ зүүн талын жагсаалтаас сонгоно уу!");
+            alert.showAndWait();
+            return;
+        }
+
+        
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Плейлист устгах");
+        alert.setHeaderText(null);
+        alert.setContentText("Та '" + selectedPlaylist + "' плейлистийг устгахдаа итгэлтэй байна уу?");
+
+        java.util.Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.OK) {
+            
+            // Database-ees ustgah 
+            boolean success = com.music_player.Database.PlaylistDAO.deletePlaylist(selectedPlaylist);
+            
+            if (success) {
+                System.out.println("Плейлист амжилттай устлаа: " + selectedPlaylist);
+                
+                
+                listPlayeList.getItems().remove(selectedPlaylist);
+                listPlayeList.getSelectionModel().clearSelection();
+
+            
+                currentMode = "ALL";
+                filteredData.setPredicate(song -> true);
+            } else {
+                System.out.println("Плейлист устгахад алдаа гарлаа.");
+            }
+        }
+    }
+    
 }
 
 
