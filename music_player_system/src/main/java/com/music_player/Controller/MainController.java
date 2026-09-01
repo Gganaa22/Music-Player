@@ -197,9 +197,9 @@ public class MainController {
 
                 // Songoson duu favorite mon esehees hamaarch tovchnii ongiig solino
                 if (selectedSong.isFavorite()) {
-                    btnFavorite.setStyle("-fx-text-fill: red;");
+                    btnFavorite.setStyle("-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);" + "-fx-text-fill: red;");
                 } else {
-                    btnFavorite.setStyle("-fx-text-fill: black;");
+                    btnFavorite.setStyle("-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);" + "-fx-text-fill: white;");
                 }
                 
                 prepareSong(selectedSong.getFileName());
@@ -269,10 +269,10 @@ public class MainController {
         btnShuffle.setOnAction(event -> {
             isShuffle = !isShuffle; // Toloviig solino(true -> false / false -> true)
             if (isShuffle) {
-                btnShuffle.setStyle("-fx-text-fill: green; -fx-font-weight: bold;"); // Idevhtei uyd nogoon
+                btnShuffle.setStyle( "-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);" + "-fx-text-fill: black;" + "-fx-font-weight: bold;"); // Idevhtei uyd nogoon
                 System.out.println("Санамсаргүй тоглуулах (Shuffle) горим идэвхжлээ.");
             } else {
-                btnShuffle.setStyle("-fx-text-fill: black;"); //Idevhgui bol har 
+                btnShuffle.setStyle("-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);" + "-fx-text-fill: white;"); //Idevhgui bol har 
                 System.out.println("Дарааллаар тоглуулах горимд шилжлээ.");
             }
         });
@@ -653,10 +653,10 @@ public class MainController {
             selectedSong.setFavorite(newFavoriteStatus); 
             
             if (newFavoriteStatus) {
-                btnFavorite.setStyle("-fx-text-fill: red;"); // Durtai bol ulaan bolno
+                btnFavorite.setStyle("-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);" + "-fx-text-fill: red;"); // Durtai bol ulaan bolno
                 System.out.println("Дуртай дуугаар тэмдэглэлээ");
             } else {
-                btnFavorite.setStyle("-fx-text-fill: black;"); // Tsutslbal har blno
+                btnFavorite.setStyle("-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff);" +"-fx-text-fill: white;"); // Tsutslbal har blno
                 System.out.println("Дуртай дуунаас хаслаа.");
             }
         }
@@ -765,7 +765,6 @@ public class MainController {
                 listPlayeList.getItems().remove(selectedPlaylist);
                 listPlayeList.getSelectionModel().clearSelection();
 
-            
                 currentMode = "ALL";
                 filteredData.setPredicate(song -> true);
             } else {

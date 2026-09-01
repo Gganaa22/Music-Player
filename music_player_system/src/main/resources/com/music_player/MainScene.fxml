@@ -100,7 +100,7 @@
                <children>
                   <HBox prefHeight="68.0" prefWidth="428.0" spacing="20.0">
                      <children>
-                        <Button fx:id="btnShuffle" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="Shuffle">
+                        <Button fx:id="btnShuffle" focusTraversable="false" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="Shuffle">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Button>
@@ -111,7 +111,7 @@
                         <Button fx:id="btnPlay" minWidth="30.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="▶" />
                         <Button fx:id="btnNext" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="⏭" />
                         <Button fx:id="btnStop" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="Stop" />
-                        <Button fx:id="btnFavorite" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="Favorite">
+                        <Button fx:id="btnFavorite" focusTraversable="false" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to bottom right, #0a4d5c, #008080, #00ffff); -fx-text-fill: white;" text="Favorite">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Button>
